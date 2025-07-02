@@ -20,10 +20,11 @@ func Description() string {
 	return `
 	Analyze the user input, clearly identify the 'yomo' subcommands that meet the user's input requirements, and provide detailed usage instructions. If there are no suitable subcommands, provide usage instructions for the 'yomo' root command
 
-- To create an application or project, use the 'init' subcommand
-- To compile an application or project, use the 'build' subcommand
-- To run an application or project, use the 'run' subcommand
--	To run zipper, use the 'serve' subcommand. First, create the 'zipper.yml' file, and then run 'yomo serve -c zipper.yml' to start the service
+- Initialize a YoMo Serverless LLM Function, use the 'init' subcommand
+- Build the YoMo Stream Function, use the 'build' subcommand
+- Run a YoMo Serverless LLM Function, use the 'run' subcommand
+-	Run a YoMo-Zipper, use the 'serve' subcommand. First, create the 'zipper.yml' file, and then run 'yomo serve -c zipper.yml' to start the service
+- Get the version of YoMo, use the 'version' subcommand
 `
 }
 
@@ -37,7 +38,7 @@ func InputSchema() any {
 // LLMArguments defines the arguments for the LLM Function Calling. These
 // arguments are combined to form a prompt automatically.
 type LLMArguments struct {
-	Command string `json:"command" jsonschema:"description=yomo CLI command"`
+	Command string `json:"command" jsonschema:"description=yomo CLI subcommand, eg: init, build, run, serve, version"`
 }
 
 // Handler orchestrates the core processing logic of this function.
@@ -68,9 +69,9 @@ func Handler(ctx serverless.Context) {
 	doc, err := cli.Doc(cmd)
 	if err != nil {
 		ctx.WriteLLMResult(fmt.Sprintf("Error get document for command '%s': %v", p.Command, err))
-		slog.Error("yomo-cli", "command", p.Command, "error", err)
+		slog.Error("yomo-cli-mcp", "command", p.Command, "error", err)
 		return
 	}
 	ctx.WriteLLMResult(doc)
-	slog.Info("yomo-cli", "command", p.Command, "doc", doc)
+	slog.Info("yomo-cli-mcp", "command", p.Command, "doc", doc)
 }
