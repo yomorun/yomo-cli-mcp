@@ -18,7 +18,11 @@ func Init() error {
 // Description returns a description of the function
 func Description() string {
 	return `
-	Analyze the user input, clearly identify the 'yomo' subcommands that meet the user's input requirements, and provide detailed usage instructions. If there are no suitable subcommands, provide usage instructions for the 'yomo' root command
+	The yomo cli help developers generate Serverelss LLM Function project, compile Serverelss LLM Function and run Serverelss LLM Function.
+
+	To download and install the CLI, run the following command: 
+
+	curl -fsSL https://get.yomo.run | sh
 
 - Initialize a YoMo Serverless LLM Function, use the 'init' subcommand
 - Build the YoMo Stream Function, use the 'build' subcommand
@@ -73,5 +77,5 @@ func Handler(ctx serverless.Context) {
 		return
 	}
 	ctx.WriteLLMResult(doc)
-	slog.Info("yomo-cli-mcp", "command", p.Command, "doc", doc)
+	slog.Info("yomo-cli-mcp", "command", p.Command)
 }
