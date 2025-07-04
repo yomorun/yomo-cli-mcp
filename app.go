@@ -18,17 +18,25 @@ func Init() error {
 // Description returns a description of the function
 func Description() string {
 	return `
-	The yomo cli help developers generate Serverelss LLM Function project, compile Serverelss LLM Function and run Serverelss LLM Function.
+	The yomo cli help developers generate Serverelss LLM Function project, compile and run Serverelss LLM Function.
 
 	To download and install the CLI, run the following command: 
+	'curl -fsSL https://get.yomo.run | sh'
 
-	curl -fsSL https://get.yomo.run | sh
+	## Basic steps
 
-- Initialize a YoMo Serverless LLM Function, use the 'init' subcommand
-- Build the YoMo Stream Function, use the 'build' subcommand
-- Run a YoMo Serverless LLM Function, use the 'run' subcommand
--	Run a YoMo-Zipper, use the 'serve' subcommand. First, create the 'zipper.yml' file, and then run 'yomo serve -c zipper.yml' to start the service
-- Get the version of YoMo, use the 'version' subcommand
+	1. Install the YoMo CLI by running the command above.
+	2. Initialize a YoMo Serverless LLM Function project by running 'yomo init'.
+	3. Build the YoMo Serverless LLM Function by running 'yomo build'.
+	4. Run zipper locally by running 'yomo serve -c zipper.yml'.
+	5. Run the YoMo Serverless LLM Function by running 'yomo run'.
+	
+	## Usage
+	- Initialize a YoMo Serverless LLM Function, use the 'init' subcommand
+	- Build the YoMo Stream Function, use the 'build' subcommand
+	- Run a YoMo Serverless LLM Function, use the 'run' subcommand
+	-	Run/Configure the YoMo Zipper, use the 'serve' subcommand. First, create the 'zipper.yml' file, and then run 'yomo serve -c zipper.yml' to start the service
+	- Get the version of YoMo, use the 'version' subcommand
 `
 }
 
@@ -73,9 +81,9 @@ func Handler(ctx serverless.Context) {
 	doc, err := cli.Doc(cmd)
 	if err != nil {
 		ctx.WriteLLMResult(fmt.Sprintf("Error get document for command '%s': %v", p.Command, err))
-		slog.Error("yomo-cli-mcp", "command", p.Command, "error", err)
+		slog.Error("yomo-cli-mcp load usage failed", "command", p.Command, "error", err)
 		return
 	}
 	ctx.WriteLLMResult(doc)
-	slog.Info("yomo-cli-mcp", "command", p.Command)
+	slog.Info("yomo-cli-mcp load usage success", "command", p.Command)
 }
