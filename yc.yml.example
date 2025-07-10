@@ -1,0 +1,2 @@
+app-secret: <your-app-secret>
+sfn-name: yomo-cli-mcp
