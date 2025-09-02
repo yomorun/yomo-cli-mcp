@@ -1,2 +1,3 @@
-app-secret: <your-app-secret>
-sfn-name: yomo-cli-mcp
+zipper: zipper.vivgrid.com
+secret: <your-app-secret>
+tool: yomo-cli-mcp
